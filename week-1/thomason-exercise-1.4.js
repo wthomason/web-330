@@ -1,50 +1,72 @@
-function Album(title, composer) {
-    this.title = title;
-    this.composer = composer;
+/*
+============================================
+; Title:  Exercise 1.4
+; File: thomason-exercise-1.4.js
+; Author: William Thomason
+; Date:   19 February 2019
+; Description: Duck Typing, A.K.A “Interfaces”
+;===========================================
+*/
+
+//HEADER
+const header = require('../thomason-header.js');
+console.log(header.display("William", "Thomason", "Exercise 1.4") + "\n");
+
+//START OF PROGRAM
+
+//CONSTRUCTORS AND THEIR PROTOTYPES
+function Car(model){
+    this.model = model;
 }
 
-Album.prototype.purchase = function() {
-    console.log("Album added to shopping cart!");
-};
-
-function Cd(title, composer, price) {
-    this.title = title;
-    this.composer = composer;
-    this.price = price;
+Car.prototype.start = function(){
+    console.log("Car added to the race track.");
 }
 
-Cd.prototype.purchase = function() {
-    console.log("CD added to shopping cart!");
-};
-
-function Dvd(title, price, description) {
-    this.title = title;
-    this.price = price;
-    this.description = description;
+function Truck(model, year){
+    this.model = model;
+    this.year = year;
 }
 
-Dvd.prototype.purchase = function() {
-    console.log("DVD added to shopping cart!");
-};
-
-var uriCaine = new Album("Uri Caine", "Primal Light");
-var blakeShelton = new Cd("If I'm Honest", "Blake Shelton", 14.99);
-var tron = new Dvd("TRON-LEGACY", 9.96, "Action/Adventure");
-
-var purchased = [];
-
-function purchaseIt(item) {
-    item.purchase();
-
-    purchased.push(item);
+Truck.prototype.start = function(){
+    console.log("Truck added to the race track.");
 }
 
-purchaseIt(uriCaine);
-purchaseIt(blakeShelton);
-purchaseIt(tron);
-
-// Display shopping cart
-console.log("\n-- The following items have been added to your shopping cart --");
-for (var k = 0; k < purchased.length; k++) {
-    console.log(purchased[k].constructor.name + ": " + purchased[k].title);
+function Jeep(model, year, color){
+    this.model = model;
+    this.year = year;
+    this.color = color;
 }
+
+Jeep.prototype.start = function(){
+    console.log("Jeep added to the race track.");
+}
+
+//RACETRACK ARRAY
+var racetrack = [];
+
+//driveIt FUNCTION THAT PUSHES var vehicle to array and calls the prototype of the constructor
+function driveIt(vehicle){
+    vehicle.start();
+
+    racetrack.push(vehicle);
+}
+
+//CREATING THE VARIABLES OF DATA AND LINKING THEM TO A CONSTRUCTOR
+var camery = new Car("Camery");
+var tundra = new Truck("Tundra", "2013");
+var cherokee = new Jeep("Cherokee", "1998", "red");
+
+console.log("");
+
+//CALLING VARIABLES INTO THE driveIt FUNCTION
+driveIt(camery);
+driveIt(tundra);
+driveIt(cherokee);
+
+//OUPUT
+console.log('\n-- The following vehicles have been added to the race track. --');
+for(var x = 0; x < racetrack.length; x++){
+ console.log(racetrack[x].constructor.name + ": " + racetrack[x]. model);
+}
+//END OF PROGRAM

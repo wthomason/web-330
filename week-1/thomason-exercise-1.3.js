@@ -1,9 +1,10 @@
 /*
 ============================================
 ; Title:  Exercise 1.3
+; File: thomason-exercise-1.3.js
 ; Author: William Thomason
 ; Date:   19 February 2019
-; Description: Exception Handling
+; Description: Class Refresher
 ;===========================================
 */
 
