@@ -92,7 +92,7 @@ var informix = informixFactory.createDatabase({
 
 //console.log(mySql instanceof MySql);
 //console.log(mySql);
-console.log(oracle);
-console.log(informix);
-
+console.log("Oracle { \n username: '" + oracle.username + "',\n password: '" + oracle.password + "',\n server: '" + oracle.server + "',\n version: '" + oracle.version +"'\n }");
+console.log("\n");
+console.log("Informix { \n username: '" + informix.username + "',\n password: '" + informix.password + "',\n server: '" + informix.server +"'\n }");
 //END PROGRAM
