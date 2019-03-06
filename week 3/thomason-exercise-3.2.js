@@ -3,7 +3,7 @@
 ; Title:  Exercise 3.2
 ; Author: William Thomason
 ; Date:   5 March 2019
-; Description: Prototypes
+; Description: The Factory Pattern
 ;===========================================
 */
 
@@ -92,7 +92,16 @@ var informix = informixFactory.createDatabase({
 
 //console.log(mySql instanceof MySql);
 //console.log(mySql);
-console.log("Oracle { \n username: '" + oracle.username + "',\n password: '" + oracle.password + "',\n server: '" + oracle.server + "',\n version: '" + oracle.version +"'\n }");
+console.log("Oracle { \n username: '" +
+ oracle.username + "',\n password: '" +
+  oracle.password + "',\n server: '" +
+   oracle.server + "',\n version: '" +
+    oracle.version +"'\n }");
+
 console.log("\n");
-console.log("Informix { \n username: '" + informix.username + "',\n password: '" + informix.password + "',\n server: '" + informix.server +"'\n }");
+
+console.log("Informix { \n username: '" +
+ informix.username + "',\n password: '" +
+  informix.password + "',\n server: '" +
+   informix.server +"'\n }");
 //END PROGRAM
