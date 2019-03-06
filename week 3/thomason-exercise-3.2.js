@@ -36,7 +36,6 @@ function Informix(properties) {
   this.username = properties.username || "admin";
   this.password = properties.password || "in-s3cret";
   this.server = properties.server || "localhost:3030";
-  //this.version = properties.version || 5.7
 }
 
 function DatabaseFactory() {}
@@ -66,9 +65,6 @@ var postgres = postgresFactory.createDatabase({
   password: "SuperSecret"
 });
 
-//console.log(postgres instanceof Postgres);
-//console.log(postgres);
-
 var mySqlFactory = new DatabaseFactory();
 var mySql = mySqlFactory.createDatabase({
   databaseType: 'MySQL',
@@ -90,8 +86,6 @@ var informix = informixFactory.createDatabase({
   password: "admin"
 });
 
-//console.log(mySql instanceof MySql);
-//console.log(mySql);
 console.log("Oracle { \n username: '" +
  oracle.username + "',\n password: '" +
   oracle.password + "',\n server: '" +
