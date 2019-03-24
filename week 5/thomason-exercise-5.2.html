@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Exercise 5.2 - The Proxy Pattern</title>
+
+    <!--Bootstrap CSS-->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    <!-- jquery Reference Library -->
+    <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+
+</head>
+<body>
+<nav class="navbar navbar-dark bg-dark">
+  <a href="#" class="navbar-brand">Home</a>
+</nav>
+
+<br/><br/>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+
+      <h2>Exercise 5.2 - The Proxy Pattern</h2>
+
+      <button class="btn btn-primary" id="btnPreviewProxy">Preview Proxy</button>
+      <br/>
+      <span id="spanProxyResults"></span>
+
+    </div>
+  </div>
+</div>
+
+<script>
+
+    $(function() {
+
+      var truck = {
+        make: "Chevy",
+        model: "Silverado",
+        display: function(){
+          //clears span tak before taking content
+          $("#spanProxyResults").html("");
+
+          //finds the span and appends the string with the values from above.
+          $("#spanProxyResults").append("<br/>Make: " + this.make + "<br/>Model: " + this.model);
+        }
+      };
+
+      //add a click event to the button and uses the proxy function with the truck object and display function.
+      $("#btnPreviewProxy").click($.proxy(truck, "display"));
+    });
+
+
+</script>
+
+
+</body>
+</html>
