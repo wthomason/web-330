@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <title>Exercise 7.2</title>
+
+    <!-- Stylesheet - Bootstrap -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css"
+          integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+
+    <!-- JavaScript Libraries -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    
+    <script type='text/javascript' src='https://cdnjs.cloudflare.com/ajax/libs/knockout/3.5.0/knockout-min.js'></script>
+</head>
+<body class="container">
+       
+    <table data-bind="foreach: Accounts" class="table">
+        
+        <tr data-bind="displayStatus: Status">
+            <th data-bind="text: Id" scope="row"></th>
+            <td data-bind="text: Name"></td>
+            <td data-bind="text: Balance"></td>
+            <td data-bind="text: Status"></td>
+        </tr>
+        
+    </table>
+    
+<script>
+    function Account(id, name, balance, status){
+        this.Id = id;
+        this.Name = name;
+        this.Balance = ko.observable(balance);
+        this.Status = status;
+    }
+    
+    var myAccountViewModel = new function(){
+        
+        ko.applyBindings({
+            Accounts: [
+            new Account(1, "A1", 10000, "Active"),
+            new Account(2, "A2", 20000, "Inactive"),
+            new Account(3, "A3", 30000, "Closed"),
+            new Account(4, "A4", 40000, "Inactive"),
+            new Account(5, "A5", 50000, "Active"),
+            new Account(6, "A6", 60000, "Closed")
+            ]
+        });
+    }
+    
+ko.bindingHandlers.displayStatus = {
+    init: function(element, valueAccessor, allBindings, viewModel, bindingContext) {
+         var value = ko.unwrap(valueAccessor());
+        var valueLowerCase = value.toLowerCase;
+        
+        if(valueLowerCase == "inactive")
+            $(element).css("background-color", "yellow");
+        if(valueLowerCase == "active")
+            $(element).css("background-color", "green");
+        if(valueLowerCase == "closed")
+            $(element).css("background-color", "red");
+    },
+    update: function(element, valueAccessor, allBindings, viewModel, bindingContext) {
+        
+        var value = ko.unwrap(valueAccessor());
+        var valueLowerCase = value.toLowerCase;
+        
+        if(valueLowerCase == "inactive")
+            $(element).css("background-color", "yellow");
+        if(valueLowerCase == "active")
+            $(element).css("background-color", "green");
+        if(valueLowerCase == "closed")
+            $(element).css("background-color", "red");
+        
+         
+    }
+};
+
+var viewModel = {
+    Status: ko.observable(true)
+};
+ko.applyBindings(viewModel);
+    
+</script>
+
+</body>
+</html>
