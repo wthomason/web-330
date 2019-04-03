@@ -29,7 +29,7 @@
         </div>
     </div>
     <br/>
-    <div data-bind="if: firstName">
+    <div data-bind="if: lastName">
         <h2><span id="nameOutput" class="alert-success" data-bind="text: displayFullName"></span></h2>
     </div>
     <br/>
@@ -37,19 +37,23 @@
 
 <script>
     function PersonViewModel() {
+        //makes First and last name observables
             this.firstName = ko.observable("");
 
             this.lastName = ko.observable("");
 
+            //creating a computed observable and return the first name to be displayed
             this.displayName = ko.pureComputed(function () {
             return this.firstName();
             }, this);
 
+            //creating a computed observable and overwrites the first name in the h2 with the first and last name.
             this.displayFullName = ko.pureComputed(function () {
             return this.firstName() + " " + this.lastName();
             }, this);
     }
 
+    //applying the bindings
     ko.applyBindings(new PersonViewModel());
 </script>
 
