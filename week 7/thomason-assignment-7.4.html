@@ -14,10 +14,56 @@
     <script src="../knockout-v3.5.0.js"></script>
 </head>
 <body>
-
+    <div role="main" class="container">
+        <br/><br/>
+        <h1>Other binding</h1>
+        <h2>Javascript Titorials</h2>
+        <table class="table table-dark table-striped table-hover table-bordered">
+            <thead>
+                <tr>
+                    <th scope="col">Title</th>
+                    <th scope="col">Discription</th>
+                    <th scope="col">Link</th>
+                </tr>
+            </thead> <!--apply the foreach data-bind of tutorials array-->
+            <tbody data-bind="foreach: tutorials">
+                <tr>    <!--apply the values of the array into table data using the text data-bind -->
+                    <td scope="row" data-bind="text: title"></td>
+                    <td data-bind="text: discription"></td>
+                    <td data-bind="">
+                        <a data-bind="attr: {href: link}, style: {'font-weight': 'bold', 'text-decoration': 'none'}"
+                        target="_blank">Watch Here!</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <br/>
+    </div>
 
 <script>
-
+    //tutorial view Model
+    function tutorialViewModel() {
+        //creating the observable array
+        this.tutorials = ko.observableArray([
+            {title: "JavaScript Tutorial for Beginners: Learn JavaScript Basics in 1 Hour [2019]", 
+            discription: "Watch this JavaScript tutorial for beginners to learn JavaScript basics in one hour." ,
+             link: "https://www.youtube.com/watch?v=W6NZfCO5SIk"},
+            {title: "JavaScript Crash Course For Beginners",
+             discription: "In this crash course we will go over the fundamentals of JavaScript including more modern syntax like classes, arrow functions, etc. This is the starting point on my channel for learning JS." , 
+             link: "https://www.youtube.com/watch?v=hdI2bqOjy3c"},
+            {title: "JavaScript and the DOM (Part 1 of 2)", 
+            discription: "Today @adamrecvlohe walks us through some functional JS programming techniques in Part 1 of a 2 part Javascript series!" ,
+             link: "https://www.youtube.com/watch?v=hM9h1wN4rfU"},
+            {title: "JavaScript Tutorials #12 - Breaks - How To Create A Guessing Game", 
+            discription: "The 12th video in our JavaScript Tutorials series. Here, we create a basic number guessing game using a loop and a break statement to exit our loop." ,
+             link: "https://www.youtube.com/watch?v=qdcPmQdrJac"},
+            {title: "Working with Javascript Dates for Beginners",
+             discription: "In this video I will show you the basics on how to work with Date instance and how you can easily change the format using Javascript vanilla or a library called moment.js." ,
+              link: "https://www.youtube.com/watch?v=CnozSz4wbBQ"}
+        ]);
+    }
+    //applying bindings
+    ko.applyBindings(new tutorialViewModel());
 </script>
 
 </body>

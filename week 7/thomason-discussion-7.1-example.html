@@ -71,11 +71,11 @@ $( document ).ready(function() {
             var valueLowerCase = value.toLowerCase;
             
             if(valueLowerCase == "inactive")
-                $(element).css("color", "yellow");
+                $(element).addClass("bg-warning");
             if(valueLowerCase == "active")
-                $(element).css("color", "green");
+                $(element).addClass("bg-success");
             if(valueLowerCase == "closed")
-                $(element).css("color", "red");
+                $(element).addClass("bg-danger");
             
             
         }
