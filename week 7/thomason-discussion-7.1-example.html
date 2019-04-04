@@ -29,7 +29,7 @@
             </tr>
         </thead>
         <tbody data-bind="foreach: Accounts">
-            <tr class="" data-bind="displayStatus: Status">
+            <tr class="" data-bind="displayStatus: Status"><!---->
                 <th data-bind="text: Id" scope="row"></th>
                 <td data-bind="text: Name"></td>
                 <td data-bind="text: Balance"></td>
@@ -41,11 +41,30 @@
 <script>
 $(function() {
 
+    ko.bindingHandlers.displayStatus = {
+        
+        update: function(element, valueAccessor, allBindings, viewModel, bindingContext) {
+            
+            var value = ko.unwrap(valueAccessor());
+
+            //console.log the value for testing
+            //console.log(value); 
+            
+            if(value === "Inactive")
+                $(element).addClass("bg-warning"); 
+            if(value === "Active")
+                $(element).addClass("bg-success");
+            if(value === "Closed")
+                $(element).addClass("bg-danger");          
+            
+        }
+    };
+
     function Account(id, name, balance, status){
         this.Id = id;
         this.Name = name;
         this.Balance = ko.observable(balance);
-        this.Status = status;
+        this.Status = ko.observable(status);
     }
     
     var myAccountViewModel = new function(){
@@ -62,31 +81,6 @@ $(function() {
         });
     }
     
-    ko.bindingHandlers.displayStatus = {
-        init: function(element, valueAccessor, allBindings, viewModel, bindingContext) {
-            alert('yay it works');
-        },
-        update: function(element, valueAccessor, allBindings, viewModel, bindingContext) {
-            
-            var value = ko.unwrap(valueAccessor());
-            var valueLowerCase = value.toLowerCase;
-            
-            if(valueLowerCase == "inactive")
-                $(element).addClass("bg-warning");
-            if(valueLowerCase == "active")
-                $(element).addClass("bg-success");
-            if(valueLowerCase == "closed")
-                $(element).addClass("bg-danger");
-            
-            
-        }
-    };
-
-    var viewModel = {
-            Status: ko.observable(true)
-        };
-    
-    ko.applyBindings(viewModel);
 
 }); 
 </script>
