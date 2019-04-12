@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <title>Assignment 8.4</title>
+
+  <!-- Stylesheet - Bootstrap -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css"
+    integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+
+  <!-- Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+  <!--Bootstrap script-->
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+  <!-- JavaScript Libraries -->
+  <script src="../knockout-v3.5.0.js"></script>
+</head>
+
+<body>
+
+  <div role="main" class="container">
+    <br /><br />
+    <div class="row" data-bind="if: error">
+      <div class="col-sm-12">
+        <div class="alert alert-danger" role="alert">
+          <strong>Warning!</strong> <span data-bind="text: error()"></span>
+        </div>
+      </div>
+    </div>
+    <br />
+    <h2>Assignment 8.4</h2>
+    <div class="row">
+      <div class="col-sm-8">
+        <div class="card card-inverse" style="background-color: #333; border-color: #333; color: white;">
+          <div class="card-block p-3">
+            <h3 class="card-title">Employee List</h3>
+            <div class="card-text">
+
+                <!-- Button trigger Add employee modal -->
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addModal">
+                    Add Employee
+                </button>
+                <br/> <br/>
+              <table class="table table-dark table-striped table-hover">
+                <thead>
+                  <tr>
+                    <th>Id</th>
+                    <th>Employee</th>
+                    <th>Edit\Delete</th>
+                  </tr>
+                </thead>
+                <tbody data-bind="foreach: Employees">
+                  <tr>
+                    <td data-bind="text: Id"></td>
+                    <td data-bind="text: Employee"></td>
+                    <td>
+                      <span>
+                        <a href="#" class="btn btn-success" data-bind="click: $root.edit">
+                          <i class="fa fa-pencil fa-lg"> </i> EDIT
+                        </a>
+                      </span> |
+                      <span>
+                        <a href="#" class="btn btn-danger" data-bind="click: $root.remove">
+                          <i class="fa fa-trash-o fa-lg"> </i> DELETE
+                        </a>
+                      </span>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-4" data-bind="if: Employee">
+        <div class="card card-inverse" style="background-color: #333; border-color: #333; color: white;">
+          <div class="card-block p-3">
+            <h3 class="card-title">Employee List</h3>
+            <div class="card-text">
+              <div class="form-group">
+                <label for="txtEmployee">Employee: </label>
+                <input type="text" id="txtEmployee" data-bind="value: Employee().Employee" class="form-control" />
+              </div>
+              <div class="form-group float-right">
+                <button data-bind="click: $root.cancel" class="btn btn-group btn-danger">Cancel</button>
+                <button data-bind="click: $root.update" class="btn btn-group btn-success">Save</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <br />
+
+    <!-- Add Employee Modal -->
+    <div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="addModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Add Employee</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+                <div class="row" data-bind="if: error">
+                    <div class="col-sm-12">
+                        <div class="alert alert-danger" role="alert">
+                            <strong>Warning!</strong> <span data-bind="text: error()"></span>
+                        </div>
+                    </div>
+                </div>
+                <br />
+
+                <div class="form-group row">
+                    <label for="txtId" class="col-2 col-form-label">ID: </label>
+                    <div class="col-6">
+                        <input type="text" data-bind="value: idToAdd, valueUpdate:'afterkeydown'" class="form-control" id="txtId"/>
+                    </div>
+                </div>
+                <div class="form-group row">
+                        <label for="txtName" class="col-2 col-form-label">Name: </label>
+                        <div class="col-6">
+                            <input type="text" data-bind="value: nameToAdd, valueUpdate:'afterkeydown'" class="form-control" id="txtName"/>
+                        </div>
+                    </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+              <button type="button" class="btn btn-success" data-bind="click: add">Add Employee</button>
+            </div>
+          </div>
+        </div>
+    </div>
+
+  </div><!--End of div with class="container"-->
+
+  <script>
+$( document ).ready(function() {
+    //Employee object to build array
+    function Employee(id, Employee) {
+      this.Id = id;
+      this.Employee = Employee;
+    }
+
+    //creating array
+    var EmployeeList = [
+      new Employee(1, "William Thomason"),
+      new Employee(2, "Chis Write"),
+      new Employee(3, "Brian Jones"),
+      new Employee(4, "John Dudley"),
+      new Employee(5, "Joe Rogan")
+    ];
+
+    console.log(EmployeeList);
+
+    function PayrollViewModel() {
+      //seting variavles and observables to empty string
+      var self = this;
+      self.error = ko.observable("");
+      self.Id = ko.observable("");
+      self.Employee = ko.observable("");
+      //string to add name observable
+      self.nameToAdd = ko.observable("");
+      self.idToAdd = ko.observable("");
+
+      var Employee = {
+        Id: this.Id,
+        Employee: this.Employee
+      };
+
+      //setting obervables
+      self.Employee = ko.observable();
+      self.Employees = ko.observableArray(EmployeeList);
+
+      //edit funciton
+      self.edit = function (Employee) {
+
+        //loads data to add window
+        self.Employee(Employee);
+      };
+
+      //remove function
+      self.remove = function (Employee) {
+
+        //removes name from array
+        self.Employees.remove(Employee);
+      };
+
+      //cancel function
+      self.cancel = function () {
+
+        //closes the add window
+        self.Employee(null);
+      };
+
+      //update fucntion
+      this.update = function () {
+        //takeing the imput field entry
+        var l_Employee = this.Employee();
+
+        //removing the only entry form array
+        this.Employees.remove(this.Employee());
+
+        //push new entry to array
+        this.Employees.push(l_Employee);
+
+        //closes the add window
+        self.Employee(null);
+      };
+
+      this.add = function () {
+
+        // alert(self.idToAdd());
+        // alert(self.nameToAdd());
+       // var new_Employee = this.Employee(this.idToAdd(), this.nameToAdd());
+
+        var name_Employee = this.nameToAdd();
+        var id_Employee = parseInt(this.idToAdd());
+
+            //if not empty and does not match a name in array then do something   
+            if ((name_Employee && id_Employee !== "")){
+                //set error to empty string
+                this.error("");
+                
+                //push the name to array
+               self.Employees.push({Id: id_Employee, Employee: name_Employee});
+               $("#addModal").modal('toggle');
+            }
+            else { 
+                //else set error message
+                this.error("Duplicate or Invalid Entry.");
+            }
+
+            //set the nameToAdd to empty string
+            self.nameToAdd("");
+            self.idToAdd("");
+            
+        };//end add function
+
+    }//end of payrollViewModel
+
+    //applying the bindings
+    ko.applyBindings(new PayrollViewModel());
+});//end document.ready function
+  </script>
+
+</body>
+
+</html>
